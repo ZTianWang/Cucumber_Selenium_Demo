@@ -23,7 +23,9 @@ public class CalculatorStepDefinitions {
     @Before
     public void setup(){
         System.setProperty("webdriver.chrome.driver", "webdrivers/macos/chromedriver");
-
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
    @AfterStep
@@ -38,11 +40,35 @@ public class CalculatorStepDefinitions {
 
     @After
     public void tearDown() {
+        driver.close();
+    }
 
+    @Given("I open the calculator page")
+    public void i_open_the_calculator_page() {
+        driver.get("https://testsheepnz.github.io/BasicCalculator.html");
+    }
+
+    @Given("I enter {int} into the calculator")
+    public void i_enter_into_the_calculator(Integer int1) {
+        driver.findElement(By.id("number1Field")).sendKeys(String.valueOf(int1));
+    }
+
+    @Given("I also enter {int} into the calculator")
+    public void i_also_enter_into_the_calculator(Integer int1) {
+        driver.findElement(By.xpath("/html/body/section/div/div/div/form[2]/div[2]/div[2]/input")).sendKeys(String.valueOf(int1));
 
     }
 
-    //TODO STEP DEFINITIONS
+    @When("I press add")
+    public void i_press_add() {
+        driver.findElement(By.cssSelector("#calculateButton")).click();
+    }
+
+    @Then("the result should be {int}")
+    public void the_result_should_be(Integer int1) {
+        String result = driver.findElement(By.id("numberAnswerField")).getAttribute("value");
+        assertEquals(String.valueOf(int1), result);
+    }
 
 
 }
