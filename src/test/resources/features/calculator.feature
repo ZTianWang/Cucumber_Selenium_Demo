@@ -1,3 +1,4 @@
+@Demo
 Feature: Addition Calculator
 
   Background:

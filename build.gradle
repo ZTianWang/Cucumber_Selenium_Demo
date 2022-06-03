@@ -45,7 +45,8 @@ task cucumber() {
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = ['--plugin', 'pretty',
                     '--plugin', 'de.monochromata.cucumber.report.PrettyReports:target/cucumber-report',
-                    '--glue', 'nz.ac.auckland.se754.demoselenium', // package of the step definitions (java files)
+                    '--tags','@Test',
+                    '--glue', 'nz.ac.auckland.se754.demoseleniumPageObject', // package of the step definitions (java files)
                     'src/test/resources/features'] // where the features file are located (feature files)
         }
     }

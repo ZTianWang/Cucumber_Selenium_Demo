@@ -20,9 +20,9 @@ public class CalculatorStepDefinitions {
     private WebDriver driver;
     private CalculatorPage calculatorPage;
 
-    @Before
+    @Before("@Demo")
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "webdrivers/macos/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "webdrivers/win/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
@@ -30,16 +30,16 @@ public class CalculatorStepDefinitions {
     }
 
 
-    @AfterStep
-    public void afterEachStep() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    @AfterStep
+//    public void afterEachStep() {
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    @After
+    @After("@Demo")
     public void tearDown() {
        driver.close();
     }
